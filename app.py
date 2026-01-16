@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+"""from setuptools import setup, find_packages
 
 with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
@@ -20,3 +20,12 @@ setup(
     ],
     python_requires=">=3.8",
 )
+
+"""
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+print('Hello Done')
