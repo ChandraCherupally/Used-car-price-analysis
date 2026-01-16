@@ -104,16 +104,6 @@ Random Forest was selected because it:
 
 ---
 
-## 🧠 Recommendations / Future Improvements
-
-- Add **model explainability** using feature importance / SHAP
-- Improve handling of high-cardinality text features like `Model_Name`
-- Experiment with **XGBoost / LightGBM / CatBoost** for potentially better accuracy
-- Add prediction intervals (min–max price range) for better user trust
-- Store and serve model from a dedicated artifact store (HuggingFace/S3)
-
----
-
 ## 🛠️ Tech Stack
 
 - **Python**
