@@ -1,77 +1,133 @@
+# 🚗 Used Car Price Prediction (End-to-End ML + Streamlit Deployment)
+
+A complete **machine learning project** that predicts the **resale price of used cars (₹ Lakhs)** based on key vehicle attributes like brand, model, year, mileage, engine, power, fuel type, transmission, and ownership.
+
+✅ Includes: Data Cleaning → EDA → Feature Engineering → Model Training → Deployment
+
+---
+
+## 🌐 Live App (Streamlit Deployment)
+
+🚀 **Try the app here:**  
+👉 https://cars24-used-car-price-analysis.streamlit.app/
+
+---
+
+## 📌 Project Highlights
+
+- Built an end-to-end ML pipeline for used car price prediction
+- Cleaned and transformed raw data into model-ready format
+- Performed EDA to identify key pricing drivers (age, mileage, power, brand)
+- Trained and evaluated a **Random Forest Regression model**
+- Deployed a fully functional **Streamlit web application** for real-time predictions
+
+---
+
+## 🖥️ Streamlit App Preview
+
+The app allows users to input car details and instantly get the predicted resale price:
+
+- Brand Name (dropdown)
+- Model Name
+- Location
+- Year, Kilometers Driven
+- Fuel Type, Transmission
+- Owner Type, Seats
+- Mileage, Engine (CC), Power (bhp)
+
+---
+
+## 📊 Model Performance (Random Forest Pipeline)
+
+Final evaluation results:
+
+- **MAE**  : **1.545**
+- **RMSE** : **4.293**
+- **R²**   : **0.862**
+
+📌 Interpretation:
+- Model explains **~86% of variance** in used car prices  
+- Average prediction error is around **₹1.5 Lakhs**
+- Performs well across common market cars; luxury/high-end cars may have higher deviations due to price volatility
+
+---
+
 ## 🧹 Data Cleaning Summary
+
 Key cleaning steps performed:
 - Removed duplicates and handled missing values
 - Converted mixed-type columns like `Mileage`, `Engine`, and `Power` into numeric format
 - Standardized categorical columns (Fuel type, Transmission, Owner type, etc.)
-- Checked and validated outliers (high-end cars were treated as valid market cases)
+- Validated outliers (luxury cars were treated as valid market cases)
 
 ---
 
 ## 📊 Exploratory Data Analysis (EDA) Insights
 
 ### 🔹 Numerical Insights
-- **Newer cars dominate listings**, indicating higher market demand for recent models.
-- Most vehicles fall within **30k–80k km**, while very high-mileage cars are rare.
-- **Price increases with Year**, confirming depreciation effect.
-- **Engine and Power strongly influence Price**, separating mass-market and premium vehicles.
-- Price distribution is **right-skewed**, with a small luxury tail.
+- **Newer cars consistently have higher prices**, showing strong impact of depreciation (Year)
+- Most vehicles fall within **30k–80k km**, while very high-mileage cars are less common
+- **Engine and Power strongly influence price**, separating budget vs premium segments
+- Price distribution is **right-skewed** with a luxury tail
 
 ### 🔹 Categorical Insights
-- **Diesel and Petrol** dominate the used car market.
-- **Manual transmission** is more common, but **automatic cars are priced higher**.
-- **First-owner cars retain higher value**, and price drops with more owners.
-- **Brand dominance:** Maruti and Hyundai contribute most listings.
-- **Model dominance:** A few popular models account for most resale volume.
-
----
-
-## 🧠 Recommendations
-- Apply **log transformation** for skewed variables like Price and Kilometers Driven.
-- Encode high-cardinality features (`Brand_Name`, `Model_Name`) using **frequency/target encoding**.
-- Handle outliers carefully: luxury cars are **valid data points**, not noise.
-- Use tree-based models (Random Forest / Gradient Boosting) for best non-linear performance.
+- **Diesel and Petrol dominate** the used car market
+- **Manual transmission** is more common, while **Automatic** tends to have higher resale value
+- **First-owner cars retain higher value**, price reduces as ownership count increases
+- **Maruti and Hyundai** contribute most listings in the dataset
 
 ---
 
 ## ⚙️ Feature Engineering
-Key engineered features used for training:
+
+Key engineered features used during training:
 - **Car_Age = CurrentYear - Year**
 - Log transforms:
-  - `log(Kilometers_Driven)`
-  - `log(Engine)`
-  - `log(Power)`
-- Frequency encoding:
-  - `Brand_Name_freq`
-  - `Model_Name_freq`
-- One-hot encoding:
-  - Fuel type, transmission, seats
+  - `Kilometers_Driven_log = log1p(Kilometers_Driven)`
+  - `Engine_log = log1p(Engine)`
+  - `Power_log = log1p(Power)`
+- Power efficiency:
+  - `Power_per_CC = log1p(Power) / log1p(Engine)`
 - Ordinal encoding:
-  - Owner type (First < Second < Third < Fourth+)
+  - `Owner_Type`: First < Second < Third < Fourth+
 
 ---
 
-## 🤖 Model Training & Results
+## 🤖 Model Training
+
 ### ✅ Best Model: Random Forest Regressor
-Performance on test data:
 
-| Model | RMSE | MAE | R² |
-|------|------|-----|----|
-| Random Forest | **4.474** | **1.640** | **0.850** |
-
-📌 Interpretation:
-- The model explains **85% of price variance**
-- Predictions are generally stable with low average error
-- High-end cars create some larger deviations, which is expected
+Random Forest was selected because it:
+- Captures non-linear relationships (Age vs Price, Power vs Price)
+- Handles feature interactions well
+- Performs strongly without heavy scaling requirements
 
 ---
 
-## 🌐 Streamlit Web App
-The project includes a Streamlit application where users can:
-- Select car attributes (fuel, transmission, owner type, seats)
-- Enter numerical inputs (age/year, km driven, engine, power)
-- Get an instant predicted resale price
+## 🧠 Recommendations / Future Improvements
 
-### ▶️ Run Streamlit App Locally
+- Add **model explainability** using feature importance / SHAP
+- Improve handling of high-cardinality text features like `Model_Name`
+- Experiment with **XGBoost / LightGBM / CatBoost** for potentially better accuracy
+- Add prediction intervals (min–max price range) for better user trust
+- Store and serve model from a dedicated artifact store (HuggingFace/S3)
+
+---
+
+## 🛠️ Tech Stack
+
+- **Python**
+- **Pandas, NumPy**
+- **Scikit-learn**
+- **Joblib**
+- **Streamlit**
+- **Matplotlib / Seaborn (EDA)**
+
+---
+
+## ▶️ How to Run Locally
+
+### 1) Clone repository
 ```bash
-pip install -r requirements.txt
-streamlit run app/app.py
+git clone https://github.com/ChandraCherupally/Used-car-price-analysis.git
+cd Used-car-price-analysis
