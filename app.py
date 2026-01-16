@@ -111,8 +111,10 @@ st.sidebar.write("🔹 Output: Price in Lakhs (₹)")
 # ---------------- LOAD MODEL ----------------
 
 MODEL_PATH = "models/rf_used_car_price_model.pkl"
-DRIVE_FILE_ID = "PASTE_YOUR_FILE_ID_HERE"
+DRIVE_FILE_ID = "109FCuj73daZZYWFdWRGj3uXTWuj64tfl"
 MODEL_URL = f"https://drive.google.com/uc?id={DRIVE_FILE_ID}"
+
+
 
 def download_model():
     os.makedirs("models", exist_ok=True)
