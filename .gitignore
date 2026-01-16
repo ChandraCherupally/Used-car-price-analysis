@@ -13,4 +13,5 @@ dist/
 .DS_Store
 Thumbs.db
 Sample_projects/
-
+models/*.pkl
+models/*.joblib
